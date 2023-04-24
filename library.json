@@ -1,0 +1,12 @@
+{
+  "id": "{B0D7AA00-850C-53FE-8A8E-0CD3E9AB4722}",
+  "author": "Joachim Päper",
+  "name": "RaspberryPiHelper",
+  "url": "www.ip-symcon.de",
+  "compatibility": {
+        "version": "5.1"
+  },
+  "version": "1.0",
+  "build": 0,
+  "date": 0
+}
