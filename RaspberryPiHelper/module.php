@@ -158,7 +158,7 @@
 			$ResultText = $ResultText."$value\n";
 		}
 		$this->SetValue("Result_Text", $ResultText);
-		$this->SetValue("Result_Code", $Result_Codet);
+		$this->SetValue("Result_Code", $Result_Code);
 	}
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
