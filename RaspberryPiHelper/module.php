@@ -53,6 +53,9 @@
 		$this->RegisterVariableBoolean("WLAN_Information", "WLAN Information", "~Switch", 40);
 		$this->EnableAction("WLAN_Information");
 		
+		$this->RegisterVariableBoolean("LAN_Information", "LAN Information", "~Switch", 50);
+		$this->EnableAction("LAN_Information");
+		
 		$this->RegisterVariableString("Result_Text", " Ergebnis Text", "~TextBox", 300);
 		
 		$this->RegisterVariableInteger("Result_Code", "Ergebnis Code", "", 310);
@@ -89,7 +92,9 @@
 		case "WLAN_Information":
 			$this->WLAN_Information();
 			break;
-		
+		case "LAN_Information":
+			$this->WLAN_Information();
+			break;
 		default:
 		    throw new Exception("Invalid Ident");
 		}
@@ -148,6 +153,17 @@
 			exec("iwconfig", $Lines, $Result_Code);
 			$this->ShowOutput(serialize($Lines), $Result_Code);
 			$this->SetValue("WLAN_Information", false);
+		}
+	}
+	    
+	public function LAN_Information()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("LAN_Information", "Ausfuehrung", 0);
+			$this->SetValue("LAN_Information", true);
+			exec("ifconfig", $Lines, $Result_Code);
+			$this->ShowOutput(serialize($Lines), $Result_Code);
+			$this->SetValue("LAN_Information", false);
 		}
 	}
 	    
