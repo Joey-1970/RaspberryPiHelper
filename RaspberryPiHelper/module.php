@@ -53,6 +53,12 @@
 		$this->RegisterVariableBoolean("WLAN_Information", "WLAN Information", "~Switch", 40);
 		$this->EnableAction("WLAN_Information");
 		
+		$this->RegisterVariableBoolean("WLAN_On", "WLAN An", "~Switch", 42);
+		$this->EnableAction("WLAN_On");
+		
+		$this->RegisterVariableBoolean("WLAN_Off", "WLAN Aus", "~Switch", 44);
+		$this->EnableAction("WLAN_Off");
+		
 		$this->RegisterVariableBoolean("LAN_Information", "LAN Information", "~Switch", 50);
 		$this->EnableAction("LAN_Information");
 		
@@ -91,6 +97,12 @@
 			break;
 		case "WLAN_Information":
 			$this->WLAN_Information();
+			break;
+		case "WLAN_On":
+			$this->WLAN_On();
+			break;
+		case "WLAN_Off":
+			$this->WLAN_Off();
 			break;
 		case "LAN_Information":
 			$this->LAN_Information();
@@ -155,7 +167,29 @@
 			$this->SetValue("WLAN_Information", false);
 		}
 	}
+	
+	public function WLAN_On()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("WLAN_On", "Ausfuehrung", 0);
+			$this->SetValue("WLAN_On", true);
+			exec("sudo ifup wlan0", $Lines, $Result_Code);
+			$this->ShowOutput(serialize($Lines), $Result_Code);
+			$this->SetValue("WLAN_Information", false);
+		}
+	}    
 	    
+	public function WLAN_Off()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("WLAN_Off", "Ausfuehrung", 0);
+			$this->SetValue("WLAN_Off", true);
+			exec("sudo ifdown wlan0", $Lines, $Result_Code);
+			$this->ShowOutput(serialize($Lines), $Result_Code);
+			$this->SetValue("WLAN_Off", false);
+		}
+	}
+	
 	public function LAN_Information()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
