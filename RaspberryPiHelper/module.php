@@ -99,7 +99,7 @@
 			$this->SendDebug("VPN_Connect", "Ausfuehrung", 0);
 			$this->SetValue("VPN_Connect", true);
 			exec("sudo wg-quick up wg0", $Lines, $Result_Code);
-			$this->ShowOutput($Lines, $Result_Code)
+			$this->ShowOutput($Lines, $Result_Code);
 			$this->SetValue("VPN_Connect", false);
 		}
 	}
@@ -110,7 +110,7 @@
 			$this->SendDebug("VPN_Disconnect", "Ausfuehrung", 0);
 			$this->SetValue("VPN_Disconnect", true);
 			exec("sudo wg-quick down wg0", $Lines, $Result_Code);
-			$this->ShowOutput($Lines, $Result_Code)
+			$this->ShowOutput($Lines, $Result_Code);
 			$this->SetValue("VPN_Disconnect", false);
 		}
 	}
@@ -121,7 +121,7 @@
 			$this->SendDebug("VPN_Status", "Ausfuehrung", 0);
 			$this->SetValue("VPN_Status", true);
 			exec("sudo systemctl status wg-quick@wg0", $Lines, $Result_Code);
-			$this->ShowOutput($Lines, $Result_Code)
+			$this->ShowOutput($Lines, $Result_Code);
 			$this->SetValue("VPN_Status", false);
 		}
 	}
@@ -132,7 +132,7 @@
 			$this->SendDebug("Reboot", "Ausfuehrung", 0);
 			$this->SetValue("Reboot", true);
 			exec("sudo reboot", $Lines, $Result_Code);
-			$this->ShowOutput($Lines, $Result_Code)
+			$this->ShowOutput($Lines, $Result_Code);
 			$this->SetValue("Reboot", false);
 		}
 	}
@@ -143,7 +143,7 @@
 			$this->SendDebug("WLAN_Information", "Ausfuehrung", 0);
 			$this->SetValue("WLAN_Information", true);
 			exec("iwconfig", $Lines, $Result_Code);
-			$this->ShowOutput($Lines, $Result_Code)
+			$this->ShowOutput($Lines, $Result_Code);
 			$this->SetValue("WLAN_Information", false);
 		}
 	}
