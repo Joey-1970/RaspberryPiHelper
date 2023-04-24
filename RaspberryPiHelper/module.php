@@ -81,7 +81,7 @@
 			$this->VPN_Status();
 			break;
 		case "Reboot":
-			//$this->SetChaseSelect($Value);
+			$this->Reboot();
 			break;
 		case "WLAN_Information":
 			$this->WLAN_Information();
@@ -123,6 +123,17 @@
 			exec("sudo systemctl status wg-quick@wg0", $Lines, $Result_Code);
 			$this->ShowOutput($Lines, $Result_Code)
 			$this->SetValue("VPN_Status", false);
+		}
+	}
+	    
+	public function Reboot()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("Reboot", "Ausfuehrung", 0);
+			$this->SetValue("Reboot", true);
+			exec("sudo reboot", $Lines, $Result_Code);
+			$this->ShowOutput($Lines, $Result_Code)
+			$this->SetValue("Reboot", false);
 		}
 	}
 	    
