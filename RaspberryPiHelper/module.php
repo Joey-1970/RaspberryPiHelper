@@ -93,7 +93,7 @@
 			$this->WLAN_Information();
 			break;
 		case "LAN_Information":
-			$this->WLAN_Information();
+			$this->LAN_Information();
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
