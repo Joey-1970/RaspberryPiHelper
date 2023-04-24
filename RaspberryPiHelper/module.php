@@ -47,6 +47,13 @@
 		$this->RegisterVariableBoolean("Reboot", "Reboot", "~Switch", 30);
 		$this->EnableAction("Reboot");
 		
+		$this->RegisterVariableBoolean("WLAN_Information", "WLAN Information", "~Switch", 40);
+		$this->EnableAction("WLAN_Information");
+		
+		$this->RegisterVariableString("Result_Text", " Ergebnis Text", "~TextBox", 300);
+		
+		$this->RegisterVariableInteger("Result_Code", "Ergebnis Code", "", 310);
+		
 		If ($this->HasActiveParent() == true) {	
 			If ($this->ReadPropertyBoolean("Open") == true) {
 				If ($this->GetStatus() <> 102) {
@@ -73,6 +80,9 @@
 		case "Reboot":
 			//$this->SetChaseSelect($Value);
 			break;
+		case "WLAN_Information":
+			$this->WLAN_Information();
+			break;
 		
 		default:
 		    throw new Exception("Invalid Ident");
@@ -80,7 +90,36 @@
 	}
 	    
 	// Beginn der Funktionen
-
+	public function VPN_Connect()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("VPN_Connect", "Ausfuehrung", 0);
+			$this->SetValue("VPN_Connect", true);
+			exec("sudo wg-quick up wg0", $Lines, $Result_Code);
+			$this->ShowOutput($Lines, $Result_Code)
+			$this->SetValue("VPN_Connect", false);
+		}
+	}
+	    
+	public function WLAN_Information()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("WLAN_Information", "Ausfuehrung", 0);
+			$this->SetValue("WLAN_Information", true);
+			exec("iwconfig", $Lines, $Result_Code);
+			$this->ShowOutput($Lines, $Result_Code)
+			$this->SetValue("WLAN_Information", false);
+		}
+	}
+	    
+	private function ShowOutput(String $Lines, Int $Result_Code)
+	{
+		foreach ($Lines as $key => $value) {
+			$ResultText = $ResultText."$value\n";
+		}
+		$this->SetValue("Result_Text", $ResultText);
+		$this->SetValue("Result_Code", $Result_Codet);
+	}
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
