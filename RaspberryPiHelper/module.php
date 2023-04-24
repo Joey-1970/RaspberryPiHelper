@@ -72,10 +72,13 @@
 	{
 		switch($Ident) {
 		case "VPN_Connect":
-			//$this->SetSceneSelectLeft($Value);
+			$this->VPN_Connect();
 			break;
 		case "VPN_Disconnect":
-			//$this->SetSceneSelectRight($Value);
+			$this->VPN_Disconnect();
+			break;
+		case "VPN_Status":
+			$this->VPN_Status();
 			break;
 		case "Reboot":
 			//$this->SetChaseSelect($Value);
@@ -98,6 +101,28 @@
 			exec("sudo wg-quick up wg0", $Lines, $Result_Code);
 			$this->ShowOutput($Lines, $Result_Code)
 			$this->SetValue("VPN_Connect", false);
+		}
+	}
+	    
+	public function VPN_Disconnect()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("VPN_Disconnect", "Ausfuehrung", 0);
+			$this->SetValue("VPN_Disconnect", true);
+			exec("sudo wg-quick down wg0", $Lines, $Result_Code);
+			$this->ShowOutput($Lines, $Result_Code)
+			$this->SetValue("VPN_Disconnect", false);
+		}
+	}
+	    
+	public function VPN_Status()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("VPN_Status", "Ausfuehrung", 0);
+			$this->SetValue("VPN_Status", true);
+			exec("sudo systemctl status wg-quick@wg0", $Lines, $Result_Code);
+			$this->ShowOutput($Lines, $Result_Code)
+			$this->SetValue("VPN_Status", false);
 		}
 	}
 	    
