@@ -1,0 +1,14 @@
+{
+  "id": "{1390D269-1884-5AA6-A954-51AB6944B367}",
+  "name": "RaspberryPiHelper",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "RaspberryPiHelper"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "RPiHelper"
+}
