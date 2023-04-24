@@ -153,6 +153,7 @@
 	    
 	private function ShowOutput(String $Lines, Int $Result_Code)
 	{
+		$ResultText = "";
 		foreach (unserialize($Lines) as $key => $value) {
 			$ResultText = $ResultText."$value\n";
 		}
