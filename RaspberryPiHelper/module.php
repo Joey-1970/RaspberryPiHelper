@@ -47,6 +47,9 @@
 		$this->RegisterVariableBoolean("VPN_Status", "VPN Status", "~Switch", 25);
 		$this->EnableAction("VPN_Status");
 		
+		$this->RegisterVariableBoolean("ShutDown", "Herunterfahren", "~Switch", 28);
+		$this->EnableAction("ShutDown");
+		
 		$this->RegisterVariableBoolean("Reboot", "Reboot", "~Switch", 30);
 		$this->EnableAction("Reboot");
 		
@@ -61,6 +64,9 @@
 		
 		$this->RegisterVariableBoolean("LAN_Information", "LAN Information", "~Switch", 50);
 		$this->EnableAction("LAN_Information");
+		
+		$this->RegisterVariableBoolean("OW_Restart", "OneWire Restart", "~Switch", 60);
+		$this->EnableAction("OW_Restart");
 		
 		$this->RegisterVariableString("Result_Text", " Ergebnis Text", "~TextBox", 300);
 		
@@ -92,6 +98,9 @@
 		case "VPN_Status":
 			$this->VPN_Status();
 			break;
+		case "ShutDown":
+			$this->ShutDown();
+			break;
 		case "Reboot":
 			$this->Reboot();
 			break;
@@ -106,6 +115,9 @@
 			break;
 		case "LAN_Information":
 			$this->LAN_Information();
+			break;
+		case "OW_Restart":
+			$this->OW_Restart();
 			break;
 		default:
 		    throw new Exception("Invalid Ident");
@@ -145,6 +157,17 @@
 			$this->SetValue("VPN_Status", false);
 		}
 	}
+	
+	public function ShutDown()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("ShutDown", "Ausfuehrung", 0);
+			$this->SetValue("ShutDown", true);
+			exec("sudo shutdown -h 0", $Lines, $Result_Code);
+			$this->ShowOutput(serialize($Lines), $Result_Code);
+			$this->SetValue("ShutDown", false);
+		}
+	}    
 	    
 	public function Reboot()
 	{
@@ -198,6 +221,17 @@
 			exec("ifconfig", $Lines, $Result_Code);
 			$this->ShowOutput(serialize($Lines), $Result_Code);
 			$this->SetValue("LAN_Information", false);
+		}
+	}
+	    
+	public function OW_Restart()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$this->SendDebug("OW_Restart", "Ausfuehrung", 0);
+			$this->SetValue("OW_Restart", true);
+			exec("sudo service owhttpd restart", $Lines, $Result_Code);
+			$this->ShowOutput(serialize($Lines), $Result_Code);
+			$this->SetValue("OW_Restart", false);
 		}
 	}
 	    
