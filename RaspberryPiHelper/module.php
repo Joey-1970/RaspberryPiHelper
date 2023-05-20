@@ -196,7 +196,7 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("WLAN_On", "Ausfuehrung", 0);
 			$this->SetValue("WLAN_On", true);
-			exec("sudo ifup wlan0", $Lines, $Result_Code);
+			exec("sudo ip link set wlan0 up", $Lines, $Result_Code);
 			$this->ShowOutput(serialize($Lines), $Result_Code);
 			$this->SetValue("WLAN_On", false);
 		}
@@ -207,7 +207,7 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->SendDebug("WLAN_Off", "Ausfuehrung", 0);
 			$this->SetValue("WLAN_Off", true);
-			exec("sudo ifdown wlan0", $Lines, $Result_Code);
+			exec("sudo ip link set wlan0 down", $Lines, $Result_Code);
 			$this->ShowOutput(serialize($Lines), $Result_Code);
 			$this->SetValue("WLAN_Off", false);
 		}
