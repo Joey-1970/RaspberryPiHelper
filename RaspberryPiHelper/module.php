@@ -198,7 +198,7 @@
 			$this->SetValue("WLAN_On", true);
 			exec("sudo ifup wlan0", $Lines, $Result_Code);
 			$this->ShowOutput(serialize($Lines), $Result_Code);
-			$this->SetValue("WLAN_Information", false);
+			$this->SetValue("WLAN_On", false);
 		}
 	}    
 	    
